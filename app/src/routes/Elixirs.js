@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getData } from '../utils/data';
-import { getLocalStorage } from '../utils/localStorage';
+import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
+
 
 export default function Elixirs() {
   const ENDPOINT = 'Elixirs';
-  
+
+  const [Elixirs, setElixirs] = useState([]);
+
   useEffect(() => {
     let data = getLocalStorage(ENDPOINT);
     if (data.length > 0) {
@@ -22,7 +25,7 @@ export default function Elixirs() {
     <main style={{ padding: "1rem 0" }} className="container">
       <div className="row text-center justify-content-center gap-2">
         <h2>Elixirs</h2>
-        {elixirs.map((elixir) => <Elixir key={elixir.id} elixir={elixir} />)}
+        {Elixirs.map((elixir) => <Elixir key={elixir.id} elixir={elixir} />)}
       </div>
     </main>
   );

@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { getData } from '../utils/data';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 
+
 export default function Houses() {
   const ENDPOINT = 'Houses';
+
   const [houses, setHouses] = useState([]);
   
   useEffect(() => {
@@ -12,20 +14,18 @@ export default function Houses() {
       setHouses(data);
     } else {
       getData(ENDPOINT)
-        .then(() => {
-          setHouses();
-          setLocalStorage();
+        .then((data) => {
+          setHouses(data);
+          setLocalStorage(ENDPOINT, data);
         })
     }
   }, []);
 
-  let housesList = houses.map((house) => {
-    return <House house={house} />;
-  });
+  let housesList = houses.map((house) => <House house={house.id} houses = {house} />);
 
   return (
-    <main style={{ padding: "1rem 0" }} class="container">
-      <div class="row justify-content-center text-center gap-2">
+    <main style={{ padding: "1rem 0" }} className="container">
+      <div className="row justify-content-center text-center gap-2">
         <h2>Houses</h2>
         {housesList}
       </div>
@@ -36,7 +36,7 @@ export default function Houses() {
 
 const House = ({ house }) => {
   return (
-    <div class='card col-5 p-3'>
+    <div className='card col-5 p-3'>
       <h2>{house.name}</h2>
       <div>Colors: {house.houseColours}</div>
       <div>Founder: {house.founder}</div>
