@@ -35,7 +35,7 @@ export default function Wizards() {
                 </tr>
               </thead>
               <tbody>
-                {Wizards.map((wizard) => <Wizard key={wizard.id} wizard={Wizard} />)}
+                {Wizards.map((wizard) => <Wizard key={wizard.id} wizard={wizard} />)}
               </tbody>
             </table>
           </div>
@@ -44,12 +44,15 @@ export default function Wizards() {
   );
 }
 
-const Wizard = () => {
+const Wizard = ({wizard}) => {
+  if(wizard.firstName === null) {
+    return "";
+  }
   return (
     <tr>
-      <td>{`${Wizard.firstName} ${Wizard.lastName}`}</td>
-      <td>{Wizard.firstName}</td>
-      <td>{Wizard.lastName}</td>
+      <td>{`${wizard.firstName} ${wizard.lastName}`}</td>
+      <td>{wizard.firstName}</td>
+      <td>{wizard.lastName}</td>
     </tr>
   )
 }

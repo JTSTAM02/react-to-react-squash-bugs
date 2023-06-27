@@ -4,6 +4,20 @@ import { getData } from '../utils/data';
 
 export default function Ingredients() {
   const ENDPOINT = 'Ingredients';
+
+  useEffect(() => {
+    let data = getLocalStorage(ENDPOINT);
+    if(data.length > 0) {
+      setIngredients(data);
+    } else {
+      getData(ENDPOINT)
+        .then((data) => {
+        setIngredients(data);
+        setLocalStorage(ENDPOINT, data);
+      })
+    }
+  }, []);
+
   const [ingredients, setIngredients] = useState([]);
 
   return (
